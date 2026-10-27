@@ -5,8 +5,9 @@
 <storyboard_dir> holds storyboard.json and frames/f01.html, frames/f02.html, ...
 (the number is the shot's position). Each fragment is inner markup only: this script
 wraps it with frame-kit.css and renders a 540x960 PNG with headless Chrome. Image paths
-resolve relative to frames/; {{face}} becomes frames/face.jpg if it exists, otherwise a
-neutral silhouette.
+resolve relative to frames/. {{face}} becomes frames/face.jpg, else the face still from the
+setup (~/.claude/storyboard-profile/face.jpg), else a neutral silhouette. The setup's
+theme.css, if there is one, restyles the kit to the creator's look.
 
 Writes frames/out/fNN.png, frames/out/contact-sheet.jpg and board.html, and prints the
 runtime (VO at 3.4 words per second) and the face vs screen seconds.
@@ -15,6 +16,7 @@ import glob, html, json, os, platform, re, shutil, subprocess, sys
 
 WPS = 3.4
 KIT = os.path.dirname(os.path.abspath(__file__))
+PROFILE = os.path.join(os.path.expanduser("~"), ".claude", "storyboard-profile")
 SILHOUETTE = ("data:image/svg+xml;utf8," +
     "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 960'>"
     "<rect width='540' height='960' fill='%23b9bdbd'/>"
@@ -50,8 +52,11 @@ def render_frames(frames_dir, out_dir):
     if not chrome:
         sys.exit("No Chrome, Chromium or Edge found. Install Google Chrome and run this again.")
     css = open(os.path.join(KIT, "frame-kit.css"), encoding="utf-8").read()
-    face_path = os.path.join(frames_dir, "face.jpg")
-    face = file_url(face_path) if os.path.exists(face_path) else SILHOUETTE
+    theme = os.path.join(PROFILE, "theme.css")
+    if os.path.exists(theme):
+        css += "\n" + open(theme, encoding="utf-8").read()
+    faces = [os.path.join(frames_dir, "face.jpg"), os.path.join(PROFILE, "face.jpg")]
+    face = next((file_url(f) for f in faces if os.path.exists(f)), SILHOUETTE)
     pngs = []
     for frag in sorted(glob.glob(os.path.join(frames_dir, "f[0-9][0-9].html"))):
         name = os.path.basename(frag)[:-5]

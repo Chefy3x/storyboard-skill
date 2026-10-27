@@ -12,7 +12,7 @@ shot at a time, straight off it.
 Paste this into Claude Code:
 
 ```
-Install this Claude skill for me: https://github.com/chefy3x/storyboard-skill. Copy the storyboard folder into ~/.claude/skills/.
+Install this Claude skill for me: https://github.com/chefy3x/storyboard-skill. Copy the storyboard folder into ~/.claude/skills/, then walk me through setting it up.
 ```
 
 Or by hand:
@@ -28,17 +28,24 @@ Settings → Capabilities → Skills.
 Rendering the frames needs Python 3 and Google Chrome (or Chromium / Edge). `pip install
 pillow` adds the contact sheet.
 
+## Set up
+
+The first time you use it, the skill walks you through a five-minute setup. It asks for 3 to
+5 of your posted videos, studies them (shot lengths, framing, how you hook, your text style
+and colors), grabs a clean still of your face, and saves a profile in
+`~/.claude/storyboard-profile/`. Every storyboard after that matches your content. Say
+"learn my style" any time to run it again.
+
 ## Use
 
-Start a new session and paste your script:
+Paste your script:
 
 ```
 Storyboard this script. It's a 45 second Reel. [paste your script]
 ```
 
 You get a `storyboard/<video>/` folder with `storyboard.json`, a frame per shot and
-`board.html`, the whole board on one page. Drop `frames/face.jpg` (a still of you) in the
-folder and re-render to put your face in the face shots.
+`board.html`, the whole board on one page.
 
 Then build from it:
 

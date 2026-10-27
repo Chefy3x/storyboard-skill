@@ -8,7 +8,10 @@ description: >-
   user says "storyboard this", "make a storyboard", "turn this script into shots", "plan
   the shots", "shot list for this script", or has a finished script and is getting ready
   to film or edit. The finished storyboard doubles as the prompt for building the video's
-  graphics one shot at a time. Do NOT use to write or rework the script itself.
+  graphics one shot at a time. Also use right after the skill is installed, and when the
+  user says "set up the storyboard skill", "learn my style" or "here are my videos": that
+  runs the guided setup, which studies their own videos so every storyboard matches their
+  content. Do NOT use to write or rework the script itself.
 ---
 
 # Storyboard
@@ -19,6 +22,69 @@ a clear picture of what goes on screen, what the text says and what the sound is
 
 **Keep it lean.** Shots and sittings, nothing else. No arc diagram, no per-shot transitions,
 no brand kit, no checklist. If the user wants more, they'll ask.
+
+## First run: guided setup
+
+Run the setup when `~/.claude/storyboard-profile/profile.md` doesn't exist yet, right after
+the skill is installed, or when the user asks to set it up or re-learn their style. Walk
+them through it **one step at a time**: say what the step is for in a sentence, do it, and
+wait where it says to ask. Keep every message short; most people doing this are creators,
+not developers.
+
+1. **Welcome.** One short message: what the skill does (script in, a frame for every line
+   out, then Claude builds the graphics off it) and that setup takes about five minutes.
+   Then say the first thing you need is a look at their videos.
+2. **Check the tools.** Look for Python 3, Google Chrome (or Chromium / Edge) and `ffmpeg`.
+   `yt-dlp` is a bonus for links. For anything missing, give the one install command for
+   their system (for example `brew install ffmpeg` on a Mac, `winget install ffmpeg` on
+   Windows) and offer to run it. Don't go on until Chrome and ffmpeg work.
+3. **Ask about them.** One message, answered in a line each: their handle and platforms,
+   what their content is about, how long their videos usually run, and how they end them
+   (a comment keyword, follow, link in bio).
+4. **Ask for their videos.** This is the important step, so say why: their storyboards
+   should look like their videos, not like a template. Ask for **3 to 5 posted videos that
+   best show their style**, ideally including one with screen recordings or graphics if
+   they make those. They can drag the files into the chat (that pastes the path) or paste
+   links. Download links with `yt-dlp` if it's installed; if a link won't download, ask for
+   the file. Put everything in `~/.claude/storyboard-profile/source/`.
+5. **Study the videos.** For each one:
+   - **Frames:** `ffmpeg -i v1.mp4 -vf "fps=1,scale=360:-2" -q:v 4 source/v1_%03d.jpg`,
+     then look at them.
+   - **Cuts:** `ffmpeg -i v1.mp4 -vf "select='gt(scene,0.1)',showinfo" -f null - 2>&1 | grep -o "pts_time:[0-9.]*"`
+     gives the cut times, so you get the average shot length. Jump cuts in a talking head
+     barely change the picture and get missed, so check the count against the 1 fps frames.
+   - **Words:** if `whisper` (or another transcriber) is installed, transcribe it. If not,
+     read the burned-in captions off the frames, or ask them to paste the script.
+
+   Write down what you actually see, not guesses: the mix of shot types (how much is face
+   vs screen vs b-roll), average shot length, framing (mid or close, where they sit, the
+   background), how the first two seconds hook, the on-screen text (font weight, case,
+   colors, highlight style, where it sits), the caption style, the main colors, graphics
+   or overlays that repeat, sound habits, and how the CTA lands.
+6. **Pick their face still.** Choose a clean frame of them talking to camera with no
+   caption burned in, crop it to 9:16
+   (`ffmpeg -ss <t> -i v1.mp4 -frames:v 1 -vf "crop=ih*9/16:ih,scale=540:960" face.jpg`) and
+   save it as `~/.claude/storyboard-profile/face.jpg`. Every face shot uses it from now on.
+7. **Write the profile.** Save `~/.claude/storyboard-profile/profile.md` with sections for
+   Creator (step 3), Shots (type mix, average length, framing), Hook, On-screen text,
+   Captions, Colors, Sound, CTA, and Recurring graphics. Then write
+   `~/.claude/storyboard-profile/theme.css`, overriding the kit's variables with their
+   look:
+
+   ```css
+   :root { --ink: #111; --accent: #ff5a1f; --on-accent: #fff; --bg: #f4f1ea;
+           --grid: rgba(0,0,0,.05); --font: "Montserrat", sans-serif; }
+   ```
+
+   Use a font they have installed; if theirs isn't, pick the closest one that is.
+8. **Show them and confirm.** Build one sample frame (their headline style over their face
+   still), render it, show it with a three-line summary of the profile, and ask what's off.
+   Fix it until they say it looks like their content.
+9. **Hand off.** Tell them setup is done and what to do next: "Paste a script and say
+   storyboard this." They can re-run the setup any time their style changes.
+
+If they'd rather skip the setup, storyboard with the kit's default look and offer the
+setup again at the end.
 
 ## The format
 
@@ -41,9 +107,12 @@ Sittings group the shots by where they get filmed: `label`, `detail` (what to pr
 
 ## Steps
 
-1. **Get the script.** Ask for it if it isn't in the conversation or a file. If the user
-   names a target length, note it. Don't edit the script. If a line reads wrong, say so and
-   let the user fix it.
+1. **Read the profile and get the script.** Read `~/.claude/storyboard-profile/profile.md`
+   and follow it: their shot lengths, their mix of shot types, their text style, their CTA.
+   Where it disagrees with the defaults below, the profile wins. No profile yet? Offer the
+   setup first. Ask for the script if it isn't in the conversation or a file, and note the
+   target length (the profile's usual length if they don't say). Don't edit the script. If
+   a line reads wrong, say so and let the user fix it.
 2. **Split the script into shots, word for word.** Joined back together, the `vo` fields
    must equal the script exactly. Don't reword, trim or add a line.
    - **Cut where the picture changes,** not on sentence ends. A comma is a fine cut point.
@@ -114,8 +183,9 @@ Use the most real source you can get, in this order:
    own footage (`ffmpeg -ss <time> -i clip.mp4 -frames:v 1 still.jpg`). Put images in the
    `frames/` folder and reference them by file name.
 2. **Built frames.** Write the frame as an HTML body fragment using the classes in
-   [kit/frame-kit.css](kit/frame-kit.css). `{{face}}` in a fragment becomes the user's face
-   still if `frames/face.jpg` exists, and a neutral silhouette if it doesn't.
+   [kit/frame-kit.css](kit/frame-kit.css). `{{face}}` in a fragment becomes `frames/face.jpg`
+   if it exists, else the face still from the setup, else a neutral silhouette. The setup's
+   `theme.css` restyles every frame to their colors and font automatically.
 
    | class | use it for |
    |---|---|
@@ -152,8 +222,9 @@ Use the most real source you can get, in this order:
 
 - **Safe zones:** keep text out of the bottom 20% and the right 12% (the like and comment
   rail), and keep the top 8% clear. The kit's positions already respect these.
-- **One headline style:** heavy uppercase, one key word in `<em>`. Over a full-frame face
-  the kit turns the type white with a soft shadow.
+- **Their headline style:** follow the profile's on-screen text notes (case, weight, how
+  they highlight a word). The default is heavy uppercase with one key word in `<em>`. Over a
+  full-frame face the kit turns the type white with a soft shadow.
 - **Privacy:** no file paths with a username, emails, API keys or `.env` contents in any
   frame. Use fake IDs in tables.
 
