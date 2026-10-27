@@ -1,0 +1,195 @@
+{
+  "title": "Claude edits my videos",
+  "target_seconds": 50,
+  "shots": [
+    {
+      "type": "face",
+      "vo": "My last couple of videos were all edited by Claude.",
+      "on_screen_text": "CLAUDE EDITS MY VIDEOS",
+      "edit_note": "Mid shot to camera. Headline holds 4s.",
+      "sfx": "notification ping",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "screen",
+      "vo": "See, the noobs would have just told Claude to edit the whole video in one prompt",
+      "on_screen_text": "",
+      "edit_note": "Claude chat: one message, 'edit my whole video', send.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "graphic",
+      "vo": "and then spent the rest of the day trying to fix it.",
+      "on_screen_text": "",
+      "edit_note": "Fix requests pile up in the thread, faster and faster.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "face",
+      "vo": "But here's how the pros do it.",
+      "on_screen_text": "",
+      "edit_note": "Close shot. Lean in.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "split",
+      "vo": "First things first, you need a script. Take your time.",
+      "on_screen_text": "01 SCRIPT",
+      "edit_note": "Claude Code drafting script.md on top, face box below.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "screen",
+      "vo": "Cook it up and then throw it on the storyboard.",
+      "on_screen_text": "",
+      "edit_note": "The script lands on the board: one row per line.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "screen",
+      "vo": "Every single line of the script gets its own frame.",
+      "on_screen_text": "",
+      "edit_note": "Frames drop into each row, top to bottom.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "screen",
+      "vo": "What's on screen, what the text says and what the sound is.",
+      "on_screen_text": "",
+      "edit_note": "Push in on one row; ring the Frame, Text and SFX cells as they're named.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "face",
+      "vo": "Because the storyboard is the prompt.",
+      "on_screen_text": "",
+      "edit_note": "Mid shot. Punchline on screen.",
+      "sfx": "",
+      "thesis": true,
+      "status": "stand-in"
+    },
+    {
+      "type": "split",
+      "vo": "Second, you have Claude build out every graphic one at a time.",
+      "on_screen_text": "02 BUILD",
+      "edit_note": "Claude Code building shot 4 from the board, face box below.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "screen",
+      "vo": "Take your time, straight off that storyboard.",
+      "on_screen_text": "",
+      "edit_note": "Side by side: the frame, then the built graphic matching it.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "screen",
+      "vo": "Third, the first version is never right, so you throw it in Premiere",
+      "on_screen_text": "03 FIX",
+      "edit_note": "Premiere timeline, graphic on V2.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "split",
+      "vo": "and go back and forth with Claude until it matches the frame, or something that you like.",
+      "on_screen_text": "",
+      "edit_note": "Premiere on top, two quick revisions swap in; face box below.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "screen",
+      "vo": "Then you render it, do your polish, your captions, your sound, and your color.",
+      "on_screen_text": "",
+      "edit_note": "Fast cuts: render bar, captions, audio meters, color wheels.",
+      "sfx": "render done chime",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "face",
+      "vo": "See the noobs just prompt it, but the pros storyboard it.",
+      "on_screen_text": "",
+      "edit_note": "Mid shot.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    },
+    {
+      "type": "face",
+      "vo": "Comment storyboard and I'll send you my storyboard skill.",
+      "on_screen_text": "",
+      "edit_note": "Close shot. Keyword spoken, captions only.",
+      "sfx": "",
+      "thesis": false,
+      "status": "stand-in"
+    }
+  ],
+  "sittings": [
+    {
+      "label": "Face",
+      "detail": "Same shirt, light and framing for every face line and the face box of each split.",
+      "shots": [
+        1,
+        4,
+        5,
+        9,
+        10,
+        13,
+        15,
+        16
+      ]
+    },
+    {
+      "label": "Claude Code",
+      "detail": "One real project, start a fresh session, clear the terminal history first.",
+      "shots": [
+        2,
+        3,
+        5,
+        10,
+        11
+      ]
+    },
+    {
+      "label": "Storyboard",
+      "detail": "Open the finished storyboard for this video.",
+      "shots": [
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "label": "Premiere",
+      "detail": "The real project with shot 4's graphic on the timeline.",
+      "shots": [
+        12,
+        13,
+        14
+      ]
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+/* Storyboard frame kit: 540x960 (9:16) frames on a light grid. Classes are listed in SKILL.md. */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:540px;height:960px;overflow:hidden;color:#1A1410;
+  background-color:#e4e7e7;
+  background-image:linear-gradient(rgba(26,20,16,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(26,20,16,.055) 1px,transparent 1px);
+  background-size:22px 22px;
+  font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif}
+.f{position:relative;width:540px;height:960px;overflow:hidden}
+.hl{position:absolute;left:36px;right:70px;top:80px;font-weight:900;font-size:40px;line-height:1.02;
+  text-transform:uppercase;letter-spacing:-.02em;color:#1A1410;z-index:9}
+.hl em,.big em{font-style:normal;color:#fff;background:#3B6CF6;padding:0 .14em;border-radius:.12em;
+  box-shadow:0 4px 14px rgba(59,108,246,.3);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.lbl{position:absolute;left:36px;top:80px;z-index:9;display:flex;align-items:baseline;gap:12px}
+.lbl .n{font-weight:900;font-size:64px;color:#3B6CF6;line-height:1}
+.lbl .t{font-weight:900;font-size:40px;color:#1A1410;letter-spacing:-.01em}
+.face{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.facebox{position:absolute;left:130px;width:280px;height:250px;top:520px;border-radius:26px;overflow:hidden;
+  border:5px solid #fff;box-shadow:0 10px 30px rgba(26,20,16,.22);z-index:6}
+.facebox img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.chat{position:absolute;left:36px;right:70px;top:230px;height:270px;background:#1a1d22;border-radius:22px;
+  border:1px solid #2b3038;padding:16px;z-index:5;color:#e8e6e1}
+.chat .who{font-size:13px;color:#9aa3ae;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.chat .who b{color:#d97757}
+.bub{background:#23272e;border-radius:14px;padding:10px 12px;font-size:15px;line-height:1.3;margin-bottom:10px}
+.vid{position:relative;border-radius:12px;overflow:hidden;border:1px solid #333a44}
+.vid{height:150px}.vid img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.vid .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;
+  background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center}
+.vid .play:after{content:"";border-left:18px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.vid .dur{position:absolute;right:8px;bottom:8px;font-size:12px;background:rgba(0,0,0,.7);padding:2px 6px;border-radius:4px}
+.term{position:absolute;left:30px;right:64px;background:#0f1216;border:1px solid #262c35;border-radius:16px;
+  padding:16px 16px;font:15px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#b9c2cd;z-index:5}
+.term .bar{display:flex;gap:6px;margin-bottom:12px}
+.term .bar i{width:11px;height:11px;border-radius:50%;background:#3a414c;display:block}
+.term .p{color:#f4f5f5}
+.term .p:before{content:"› ";color:#d97757}
+.term .tool{color:#8ab4f8}
+.term .tool:before{content:"⏺ ";color:#3fb950}
+.term .ok{color:#7ee2a0}
+.term .dim{color:#6b7480}
+.shot{position:absolute;left:30px;right:64px;border-radius:14px;overflow:hidden;border:1px solid #2b3038;z-index:4;
+  box-shadow:0 12px 32px rgba(26,20,16,.25)}
+.shot img{display:block;width:100%}
+.badge{position:absolute;right:12px;top:12px;background:#3fb950;color:#07130a;font-weight:900;font-size:14px;
+  padding:4px 10px;border-radius:999px;z-index:6}
+.big{position:absolute;left:36px;right:70px;font-weight:900;color:#1A1410;text-transform:uppercase;
+  z-index:9;line-height:.95}
+/* full-frame face shots: type goes white with a soft shadow, like his captions over footage */
+.f:has(> .face) .hl,.f:has(> .face) .big,.f:has(> .face) .lbl .t{color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.7)}
+.tbl{position:absolute;left:30px;right:64px;background:#15181c;border:1px solid #2a3038;border-radius:14px;overflow:hidden;z-index:5}
+.tbl .h{background:#1c2026;padding:10px 14px;font-size:14px;color:#9aa3ae;display:flex;justify-content:space-between}
+.tbl .h b{color:#3ecf8e}
+.tbl .r{display:grid;grid-template-columns:1.3fr 1fr .9fr;padding:9px 14px;font-size:14px;border-top:1px solid #23282f;color:#c7cdd4}
+.tbl .r.new{background:#12301f;color:#bff2d2}
+.tbl .r.hd{color:#7c8591;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.obs{position:absolute;left:30px;right:64px;top:210px;height:560px;background:#1e1e1e;border:1px solid #2e2e2e;border-radius:16px;
+  display:grid;grid-template-columns:150px 1fr;overflow:hidden;z-index:5}
+.obs .side{background:#262626;padding:14px 10px;font-size:13px;color:#a6a6a6;line-height:1.9}
+.obs .side .f1{color:#dcdcdc}
+.obs .side .on{background:#3a3a3a;color:#fff;border-radius:5px;padding:0 6px;margin-left:-6px}
+.obs .note{padding:16px 16px;font-size:14px;color:#d4d4d4;line-height:1.45}
+.obs .note h1{font-size:22px;color:#fff;margin-bottom:10px}
+.obs .note h2{font-size:15px;color:#a882ff;margin:12px 0 6px}
+.obs .row{display:flex;justify-content:space-between;border-bottom:1px solid #333;padding:5px 0;font-size:13px}
+.st{font-size:11px;padding:1px 7px;border-radius:4px;font-weight:700}
+.done{background:#173d25;color:#7ee2a0}.part{background:#3d3316;color:#f5c451}.ns{background:#3a1c1e;color:#f19a9d}
+.cap{position:absolute;left:36px;right:70px;bottom:230px;font-size:18px;font-weight:700;color:#f3ead9;z-index:9;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.room{position:absolute;inset:0;background:radial-gradient(120% 70% at 30% 20%,#6b4b36 0%,#2c2019 45%,#120d0a 100%)}
+.lamp{position:absolute;left:60px;top:120px;width:160px;height:160px;border-radius:50%;background:radial-gradient(#ffcf8a55,#0000 70%)}
+.couch{position:absolute;left:-40px;right:-40px;top:560px;height:260px;background:#3b2a22;border-radius:60px 60px 0 0;box-shadow:inset 0 20px 50px #0006}
+.phone{position:absolute;left:150px;top:300px;width:240px;height:470px;background:#050505;border-radius:36px;border:6px solid #1b1b1b;
+  box-shadow:0 30px 70px rgba(0,0,0,.7);overflow:hidden;z-index:6;transform:rotate(-6deg)}
+.phone img{position:absolute;top:120px;left:0;width:100%}
+.phone .pp{position:absolute;top:190px;left:50%;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;background:rgba(0,0,0,.6)}
+.phone .pp:after{content:"";position:absolute;left:19px;top:14px;border-left:17px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent}
+.tag{position:absolute;left:36px;right:70px;top:80px;font-size:15px;font-weight:800;letter-spacing:.06em;color:#f5c451;z-index:9}
